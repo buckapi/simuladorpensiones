@@ -1,15 +1,19 @@
-<!-- <div class="logo">
+<div class="logo">
     <div class="logo-icon">
         <img src="assets/images/logo.png" alt="BeRifma">
     </div>
     <div class="logo-text">
-        Trimba
+        Simulador de pensiones
     </div>
-</div> -->
+    <!-- Botón de inicio de sesión -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+        Iniciar Sesión
+    </button>
+</div>
 <div class="container">
     <div class="wrapper">
         <div class="row">
-            <div class="tab-sm-100 col-md-6 order-1 order-md-0"> <!-- Sección de bienvenida -->
+            <div class="tab-sm-100 col-md-6 order-1 order-md-0" > 
 
                 <!-- side -->
                 <div class="left" >
@@ -28,29 +32,32 @@
                         <img src="assets/images/left-bg.gif" alt="BeRifma">
                     </div>
                 </div>
+                <!-- Botón para mostrar el formulario -->
+           <!--  <button type="button" class="btn btn-success" (click)="mostrarFormularioFn()">
+                ¡Comencemos a calcular tu pensión!
+            </button> -->
             </div>
-            <div class="tab-sm-100 offset-md-1 col-md-5 order-0 order-md-1"> <!-- Sección del formulario -->
+            <div class="tab-sm-100 offset-md-1 col-md-5 order-0 order-md-1" > 
                 <div class="right">
                     <article class="side-text">
                     <p>Llene el formulario para obtener el resultado <span> por pension de Vejez y Cesantía</span></p>
                     </article>
-                    <!-- form -->
-                    <form id="steps" method="post" enctype="multipart/form-data" [formGroup]="cotizacionForm" (ngSubmit)="onSubmit()">
+                   
+                     <form id="steps" method="post" enctype="multipart/form-data" [formGroup]="cotizacionForm" (ngSubmit)="onSubmit()">
 
-                        <!-- step 1 -->
                         <div id="step1" class="form-inner lightSpeedIn">
                             <div class="input-field">
-                                <label><i class="fa-regular fa-user"></i>No. Semanas Cotizadas <span>*</span></label>
+                                <label><i class="fa-regular fa-calendar"></i>No. Semanas Cotizadas <span>*</span></label>
                                 <input required type="number" formControlName="semanasCotizadas" name="semanasCotizadas" id="semanasCotizadas" placeholder="semanasCotizadas">
                                 <span></span>
                             </div>
                             <div class="input-field">
-                                <label for="company"><i class="fa-regular fa-paper-plane"></i>Salario Diario Promedio (últimas 250 Semanas) <span>*</span></label>
+                                <label for="company"><i class="fa-regular fa-money-bill-1"></i>Salario Diario Promedio (últimas 250 Semanas) <span>*</span></label>
                                 <input required type="number" formControlName="salarioDiarioPromedio" name="salarioDiarioPromedio" id="salarioDiarioPromedio" placeholder="salarioDiarioPromedio">
                                 <span></span>
                             </div>
                             <div class="input-field">
-                                <label for="esposa"><i class="fa-solid fa-phone"></i>Esposa <span>*</span></label>
+                                <label for="esposa"><i class="fa-solid fa-user  "></i>Esposa <span>*</span></label>
                                 <select formControlName="esposa" name="esposa" id="esposa" formControlName="esposa">
                                     <option value="si">Sí</option>
                                     <option value="no">No</option>
@@ -58,41 +65,50 @@
                                 <span></span>
                             </div>
                             <div class="input-field">
-                                <label for="hijosMenoresEstudiando"><i class="fa-solid fa-phone"></i>Hijos Menores o Estudiando <span>*</span></label>
+                                <label for="hijosMenoresEstudiando"><i class="fa-solid fa-user-graduate"></i>Hijos Menores o Estudiando <span>*</span></label>
                                 <input type="number" formControlName="hijosMenoresEstudiando" name="hijosMenoresEstudiando" id="hijosMenoresEstudiando" placeholder="hijosMenoresEstudiando">
                                 <span></span>
                             </div>
                             <div class="input-field">
-                                <label><i class="fa-regular fa-envelope"></i>Padres (sólo a falta de viuda y huerfanos) <span>*</span></label>
-                                <input required type="text" formControlName="padres" name="padres" id="padres" placeholder="Cantidad de padres">
+                                <label><i class="fa-regular fa-user"></i>Padres (sólo a falta de viuda y huerfanos) <span>*</span></label>
+                               <!--  <input required type="text" formControlName="padres" name="padres" id="padres" placeholder="Cantidad de padres"> -->
+                                <select formControlName="padres" name="padres" id="padres" formControlName="padres">
+                                    <option value="si">Sí</option>
+                                    <option value="no">No</option>
+                                  </select>
                                 <span></span>
                             </div>
                             <div class="input-field">
-                                <label for="edadJubilacion"><i class="fa-solid fa-message"></i>Edad Jubilación <span>*</span></label>
-                                <input type="number" formControlName="edadJubilacion" name="edadJubilacion" id="edadJubilacion" placeholder="Edad de Jubilación">
+                                <label for="edadJubilacion"><i class="fa-solid fa-calendar"></i>Edad Jubilación <span>*</span></label>
+                                <select formControlName="edadJubilacion" name="edadJubilacion" id="edadJubilacion">
+                                    <option value="" disabled selected>Selecciona tu edad</option>
+                                    <option value="60">60</option>
+                                    <option value="61">61</option>
+                                    <option value="62">62</option>
+                                    <option value="63">63</option>
+                                    <option value="64">64</option>
+                                    <option value="65">65</option>
+                                </select>
                                 <span></span>
                             </div>
-                            
-
                         </div>
 
-                        <!-- step Button -->
                         <div class="row">
-                            <div class="col-6 submit">
+                            <div class="col-4 submit">
                                 <button type="button" (click)="onSubmit()" [disabled]="!cotizacionForm.valid">Calcular Pensión <span><i class="fa-solid fa-thumbs-up"></i></span></button>
                             </div>
-                            <div class="col-6 submit">
-                                <button type="button" (click)="limpiar()">Limpiar <span><i class="fa-solid fa-thumbs-up"></i></span></button>
+                            <div class="col-4 submit">
+                                <button type="button" (click)="limpiar()">Limpiar <span><i class="fa-solid fa-rotate"></i></span></button>
                             </div>
-                            <div class="col-6 submit">
-                                <button type="button" (click)="generarPDF()" [disabled]="!pdfGenerable">Generar PDF <span><i class="fa-solid fa-thumbs-up"></i></span></button>
+                            <div class="col-4 submit">
+                                <button type="button" (click)="generarPDF()" [disabled]="!pdfGenerable">Generar PDF <span><i class="fa-solid fa-"></i></span></button>
                             </div>
                         </div>
-                    </form>
+                    </form> 
                     <div *ngIf="pensionTotal > 0">
                         <h3>Resultados:</h3>
-                        <p>Pensión Anual x Vejez: {{ pensionTotal | currency }}</p>
-                        <p>Pensión Anual x Cesantía en Edad Avanzada: {{ pensionCesantia | currency }}</p>
+                        <p>Pensión Anual x Vejez: <strong style="background-color: #ffc107; color: white">{{ pensionTotal | currency }}</strong></p>
+                        <p>Pensión Anual x Cesantía en Edad Avanzada: <strong style="background-color: #198754; color: white">{{ pensionCesantia | currency }}</strong></p>
                     </div>
                     
                 </div>
@@ -100,30 +116,31 @@
         </div>
     </div>
 </div>
-<div class="left-shape">
-    <img src="assets/images/top-left.png" alt="">
-</div>
-<div class="right-shape">
-    <img src="assets/images/top-right.png" alt="">
-</div>
-<!-- Modal -->
-<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+
+<!-- Modal de Inicio de Sesión -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="infoModalLabel">Información Importante</h5>
+                <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <ul>
-                    <li>1.- Considera que la edad que debes capturar será la que tengas al momento de llegar a la edad del retiro, la edad mínima es de 60 años, si tienes más de 65 debes poner 65 ya que no existe ningún beneficio adicional por tener más de 65.</li>
-                    <li>2.- Recuerda que los hijos solamente se deben capturar si son menores de edad o si tienen menos de 25 años y están estudiando, de lo contrario no debes considerarlos.</li>
-                    <li>3.- Las semanas de cotización son las que tendrás al momento de pensionarte, no son las semanas que tienes actualmente.</li>
-                    <li>4.- El salario diario promedio es el de las últimas 250 semanas de cotización, NO LOS ÚLTIMOS 5 AÑOS.</li>
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+               <!--  <form [formGroup]="loginForm" (ngSubmit)="loginUser()"> -->
+                    <form>
+                    <div class="input-field">
+                        <label><i class="fa-regular fa-envelope"></i>Correo Electrónico <span>*</span></label>
+                        <input required type="email" formControlName="email" name="email" id="loginEmail" placeholder="Correo Electrónico">
+                    </div>
+                    <div class="input-field">
+                        <label><i class="fa-solid fa-lock"></i>Contraseña <span>*</span></label>
+                        <input required type="password" formControlName="password" name="password" id="loginPassword" placeholder="Contraseña">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

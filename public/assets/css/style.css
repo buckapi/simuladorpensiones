@@ -3,11 +3,11 @@
 /* variables */
 :root
 {
-    /* --secondary-color: rgb(247, 147, 58); */
+    --secondary-color: #eb0029;
     --field-text-color: rgb(26, 25, 25);
     --field-place-color: rgb(159, 159, 159);
     --text-color: rgb(40, 40, 41);
-    --primary-color: rgb(0, 143, 156);
+    --primary-color: #016a50;
     --field-color: rgb(250, 228, 202);
     
 }
@@ -27,7 +27,7 @@ main
     padding: 45px 80px;
     position: relative;
     height: auto;
-    background-color: rgb(255, 249, 242);
+    background-color: #fff;
     min-height: 100vh;     
 
 }
@@ -167,7 +167,7 @@ form
     color: var(--field-place-color);
     background-color: transparent;
     border: 0;
-    border-bottom: solid 3px var(--field-color);
+    border-bottom: solid 3px #198754;
     width: 100%;
     position: relative;
     transition: .4s ease;
