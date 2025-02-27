@@ -88,3 +88,6 @@
 .modal-backdrop {
     display: none; /* Oculta el fondo oscuro */
 }
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.2); /* Cambiar el valor de opacidad según sea necesario */
+  }

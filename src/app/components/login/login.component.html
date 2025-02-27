@@ -1,1 +1,53 @@
-<p>login works!</p>
+<div class="container">
+    <div class="wrapper">
+        <div class="tab-sm-100 col-md-12 order-1 order-md-0" *ngIf="!mostrarFormulario"> 
+            <!-- side -->
+            <div class="left d-flex align-items-center justify-content-between flex-column flex-md-row">
+                <article class="side-text text-center text-md-start mb-3 mb-md-0">
+                    <h3>Bienvenidos al simulador de pensiones por cesantia y vejez</h3>
+                </article>
+                
+                <div class="left-img text-center">
+                    <img src="assets/images/left-bg.gif" alt="BeRifma" class="img-fluid">
+                </div>
+            </div>
+            
+            <!-- Botón para mostrar el formulario -->
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-success" (click)="global.setRoute('home')">
+                    ¡Comencemos a calcular tu pensión!
+                </button>
+            </div>
+        </div>
+        
+    </div>
+    <!-- Modal de Inicio de Sesión -->
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                   <!--  <form [formGroup]="loginForm" (ngSubmit)="loginUser()"> -->
+                        <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+                        <div class="input-field">
+                            <label><i class="fa-regular fa-envelope"></i>Usuario <span>*</span></label>
+                            <input required type="text" formControlName="username" name="username" id="loginUsername" placeholder="Usuario">
+                        </div>
+                        <div class="input-field">
+                            <label><i class="fa-solid fa-lock"></i>Contraseña <span>*</span></label>
+                            <input required type="password" formControlName="password" name="password" id="loginPassword" placeholder="Contraseña">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

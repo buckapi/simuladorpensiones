@@ -1,18 +1,48 @@
-<div class="logo">
+
+<!-- <div class="logo">
     <div class="logo-icon">
         <img src="assets/images/logo.png" alt="BeRifma">
     </div>
     <div class="logo-text">
-        Simulador de pensiones
+        <h1>Simulador de Pensiones</h1>
     </div>
-    <!-- Botón de inicio de sesión -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
-        Iniciar Sesión
-    </button>
-</div>
+    <div class="auth-buttons mt-3 mt-md-0">
+        <div class="row">
+            <div class="d-flex justify-content-center justify-content-md-end">
+                <button *ngIf="!isLoggedIn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Iniciar Sesión
+                </button>
+                <button *ngIf="isLoggedIn" type="button" class="btn btn-success" (click)="logoutUser()">
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
 <div class="container">
     <div class="wrapper">
+        <!-- <div class="tab-sm-100 col-md-12 order-1 order-md-0" *ngIf="!mostrarFormulario"> 
+            <div class="left d-flex align-items-center justify-content-between flex-column flex-md-row">
+                <article class="side-text text-center text-md-start mb-3 mb-md-0">
+                    <h3>Bienvenidos al simulador de pensiones por cesantia y vejez</h3>
+                </article>
+                
+                <div class="left-img text-center">
+                    <img src="assets/images/left-bg.gif" alt="BeRifma" class="img-fluid">
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-success" (click)="mostrarFormularioFn()">
+                    ¡Comencemos a calcular tu pensión!
+                </button>
+            </div>
+        </div> -->
+        
         <div class="row">
+            
             <div class="tab-sm-100 col-md-6 order-1 order-md-0" > 
 
                 <!-- side -->
@@ -94,22 +124,43 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-4 submit">
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 submit">
                                 <button type="button" (click)="onSubmit()" [disabled]="!cotizacionForm.valid">Calcular Pensión <span><i class="fa-solid fa-thumbs-up"></i></span></button>
                             </div>
-                            <div class="col-4 submit">
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 submit">
                                 <button type="button" (click)="limpiar()">Limpiar <span><i class="fa-solid fa-rotate"></i></span></button>
                             </div>
-                            <div class="col-4 submit">
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 submit">
                                 <button type="button" (click)="generarPDF()" [disabled]="!pdfGenerable">Generar PDF <span><i class="fa-solid fa-"></i></span></button>
                             </div>
                         </div>
                     </form> 
                     <div *ngIf="pensionTotal > 0">
                         <h3>Resultados:</h3>
-                        <p>Pensión Anual x Vejez: <strong style="background-color: #ffc107; color: white">{{ pensionTotal | currency }}</strong></p>
-                        <p>Pensión Anual x Cesantía en Edad Avanzada: <strong style="background-color: #198754; color: white">{{ pensionCesantia | currency }}</strong></p>
-                    </div>
+                        
+                        <!-- Pensión Anual x Vejez -->
+                        <p>Pensión Anual x Vejez: 
+                          <strong style="background-color: #ffc107; color: white">
+                            Anual: {{ pensionTotal | currency }} 
+                          </strong>
+                          <br>
+                          <strong style="background-color: #ffc107; color: white">
+                            Mensual: {{ pensionTotalMensual | currency }} 
+                          </strong>
+                        </p>
+                      
+                        <!-- Pensión Anual x Cesantía en Edad Avanzada -->
+                        <p>Pensión Anual x Cesantía en Edad Avanzada: 
+                          <strong style="background-color: #198754; color: white">
+                            Anual: {{ pensionCesantia | currency }}
+                          </strong>
+                          <br>
+                          <strong style="background-color: #198754; color: white">
+                            Mensual: {{ pensionCesantiaMensual | currency }}
+                          </strong>
+                        </p>
+                      </div>
+                      
                     
                 </div>
             </div>
@@ -117,31 +168,4 @@
     </div>
 </div>
 
-<!-- Modal de Inicio de Sesión -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               <!--  <form [formGroup]="loginForm" (ngSubmit)="loginUser()"> -->
-                    <form>
-                    <div class="input-field">
-                        <label><i class="fa-regular fa-envelope"></i>Correo Electrónico <span>*</span></label>
-                        <input required type="email" formControlName="email" name="email" id="loginEmail" placeholder="Correo Electrónico">
-                    </div>
-                    <div class="input-field">
-                        <label><i class="fa-solid fa-lock"></i>Contraseña <span>*</span></label>
-                        <input required type="password" formControlName="password" name="password" id="loginPassword" placeholder="Contraseña">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+

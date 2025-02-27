@@ -1,0 +1,90 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.logo-icon img {
+    max-width: 100%;
+    height: auto;
+    width: 50px; /* Ajusta el tamaño del logo si es necesario */
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-left: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #eb0029;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #eb0029;
+}
+
+/* Responsividad: cuando la pantalla es pequeña (móvil) */
+@media (max-width: 767px) {
+    .logo {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo-text {
+        font-size: 1.2rem;
+        margin-top: 10px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/* Transición para cambiar entre los bloques */
+.left, .right {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.left.ng-leave, .right.ng-enter {
+    opacity: 0;
+}
+/* Ajuste general para la disposición */
+.logo-container {
+    padding: 20px;
+}
+
+.logo-text h1 {
+    font-size: 1.5rem; /* Tamaño del texto en pantallas pequeñas */
+    font-weight: 600;
+    color: #333;
+}
+
+/* En pantallas más grandes */
+@media (min-width: 768px) {
+    .logo-text h1 {
+        font-size: 2rem; /* Aumentar el tamaño del texto en pantallas grandes */
+    }
+
+    .auth-buttons {
+        margin-top: 0; /* Elimina el margen superior en pantallas grandes */
+    }
+}
+
+.modal-backdrop {
+    display: none; /* Oculta el fondo oscuro */
+}
