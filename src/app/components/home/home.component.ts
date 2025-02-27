@@ -77,89 +77,6 @@ export class HomeComponent implements OnInit {
   }
  
  
- /*  limpiar() {
-    this.cotizacionForm.reset();
-    this.pensionTotal = 0;
-    this.pensionCesantia = 0;
-  } */
- 
- /*  onSubmit() {
-    if (this.cotizacionForm.valid) {
-        this.calcularPension(); // Asegúrate de que esta línea esté presente
-    } else {
-        console.log("Formulario no válido");
-    }
-}
-
-      calcularPension() {
-        const formData = this.cotizacionForm.value; // Obtener los datos del formulario
-        console.log(formData);  // Verifica los datos del formulario
-    
-        // Variables necesarias para el cálculo
-        const salarioDiarioPromedio = formData.salarioDiarioPromedio;
-        const semanasCotizadas = formData.semanasCotizadas;
-        const hijosMenoresEstudiando = formData.hijosMenoresEstudiando;
-        const tieneEsposa = formData.esposa === 'si';
-        const tienePadres = formData.padres === 'si'; // Cambiado para reflejar el nuevo select
-        const edadJubilacion = formData.edadJubilacion;
-    
-        console.log('Salario Diario Promedio:', salarioDiarioPromedio);
-        console.log('Semanas Cotizadas:', semanasCotizadas);
-        console.log('Hijos Menores o Estudiando:', hijosMenoresEstudiando);
-        console.log('Edad Jubilación:', edadJubilacion);
-        console.log('Tiene esposa:', tieneEsposa);
-        console.log('Tiene padres:', tienePadres);
-      
-        // 1. Cuantía Básica Anual
-        const cuantiaDiaria = salarioDiarioPromedio * 0.1561;
-        const cuantiaBasicaAnual = cuantiaDiaria * 365;  // Cuantía básica anual
-      
-        // 2. Incremento Anual a la Cuantía Básica
-        const incrementoDiario = salarioDiarioPromedio * 0.0236;
-        const incrementoAnual = incrementoDiario * 365;
-        const incrementoAnualCuantiaBasica = incrementoAnual * 20;  // 20 años adicionales
-        
-        // 3. Cuantía Anual de la Pensión
-        const cuantiaAnualPension = cuantiaBasicaAnual + incrementoAnualCuantiaBasica;
-      
-        // 4. Ayudas
-        let ayudaEsposa = 0;
-        if (tieneEsposa) {
-            ayudaEsposa = cuantiaAnualPension * 0.15;  // 15% de la cuantía anual
-        }
-    
-        let ayudaHijos = 0;
-        if (hijosMenoresEstudiando > 0) {
-            ayudaHijos = cuantiaAnualPension * 0.10 * hijosMenoresEstudiando; // 10% por cada hijo
-        }
-    
-        let ayudaPadres = 0;
-        if (tienePadres) {
-            ayudaPadres = cuantiaAnualPension * 0.20;  // 20% si aplica
-        }
-      
-        // 5. Total de ayudas
-        const totalAyudas = ayudaEsposa + ayudaHijos + ayudaPadres;
-      
-        // 6. Cuantía Anual de la Pensión + Ayudas
-        const pensionTotalCalculada = cuantiaAnualPension + totalAyudas;
-      
-        // 7. Pensión por Vejez (con incremento del 11%)
-        const pensionConIncremento = pensionTotalCalculada * 1.11;
-      
-        // 8. Pensión por Cesantía (75% de la pensión por vejez)
-        const pensionCesantiaCalculada = pensionConIncremento * 0.75;
-    
-        // Asignamos los resultados para mostrarlos en la vista
-        this.pensionTotal = pensionConIncremento;
-        this.pensionCesantia = pensionCesantiaCalculada;
-    
-        this.pdfGenerable = true;
-    
-        // Resultados en consola para verificar
-        console.log(`Pensión total anual por vejez: $${this.pensionTotal.toFixed(2)}`);
-        console.log(`Pensión total anual por cesantía: $${this.pensionCesantia.toFixed(2)}`);
-    } */
         
        /*  calcularPorcentajes(salario: number, semanas: number): { basePorcentaje: number, incrementoPorcentaje: number } {
           let basePorcentaje: number;
@@ -203,21 +120,63 @@ export class HomeComponent implements OnInit {
           console.log('Incremento Anual:', incrementoAnual);
           console.log('Cuantía Total Anual:', cuantiaTotalAnual);
         } */
-      
+         /*  getCuantiaPorcentaje(salario: number, semanas: number): number {
+            // Valores base para el salario y las semanas (estos valores podrían cambiar según tu lógica)
+            const basePorcentaje = 15.61; // Porcentaje base para Salario = 1400 y Semanas = 1400
+            const salarioBase = 1400;
+            const semanasBase = 1400;
+          
+            // Cálculo del ajuste para el salario y las semanas (proporcional)
+            const ajustePorSalario = (salario - salarioBase) / salarioBase;
+            const ajustePorSemanas = (semanas - semanasBase) / semanasBase;
+          
+            // Ajuste combinado para el porcentaje de Cuantía Básica
+            // Este factor se puede ajustar según los datos reales
+            const porcentajeDecremento = 2.61 * (ajustePorSalario + ajustePorSemanas);
+          
+            // Cálculo final del porcentaje de Cuantía Básica
+            let cuantiaPorcentaje = basePorcentaje - porcentajeDecremento;
+          
+            // Asegurarse de que el porcentaje no sea negativo
+            return cuantiaPorcentaje < 0 ? 0 : cuantiaPorcentaje;
+          }
+          getIncrementoPorcentaje(salario: number, semanas: number): number {
+            // Valores base para el incremento
+            const baseIncremento = 2.38; // Porcentaje base para Salario = 1400 y Semanas = 1400
+            const salarioBase = 1400;
+            const semanasBase = 1400;
+          
+            // Cálculo del ajuste para el salario y las semanas (proporcional)
+            const ajustePorSalario = (salario - salarioBase) / salarioBase;
+            const ajustePorSemanas = (semanas - semanasBase) / semanasBase;
+          
+            // Ajuste combinado para el porcentaje de Incremento
+            // Este factor se puede ajustar según los datos reales
+            const porcentajeDecremento = 0.07 * (ajustePorSalario + ajustePorSemanas);
+          
+            // Cálculo final del porcentaje de Incremento
+            let incrementoPorcentaje = baseIncremento + porcentajeDecremento;
+          
+            // Asegurarse de que el porcentaje no sea negativo
+            return incrementoPorcentaje < 0 ? 0 : incrementoPorcentaje;
+          }
           onSubmit() {
             // Obtener los valores del formulario
-            const semanasCotizadas = this.cotizacionForm.value.semanasCotizadas;
-            const salarioDiarioPromedio = this.cotizacionForm.value.salarioDiarioPromedio;
+            const salario = this.cotizacionForm.value.salarioDiarioPromedio;
+            const semanas = this.cotizacionForm.value.semanasCotizadas;           
             const esposa = this.cotizacionForm.value.esposa;
             const hijosMenoresEstudiando = this.cotizacionForm.value.hijosMenoresEstudiando;
             const padres = this.cotizacionForm.value.padres;
             const edadJubilacion = this.cotizacionForm.value.edadJubilacion;
           
-            // Cálculos
-            const cuantiaBasicaAnual = salarioDiarioPromedio * 0.1561 * 365;
-            const incrementoAnual = salarioDiarioPromedio * 0.0238 * 365 * 17.5;
-            const cuantiaAnualPension = cuantiaBasicaAnual + incrementoAnual;
+            // Calcular los porcentajes de Cuantía y Incremento
+            const basePorcentaje = this.getCuantiaPorcentaje(salario, semanas);
+            const incrementoPorcentaje = this.getIncrementoPorcentaje(salario, semanas);
           
+            // Lógica de cálculo de la pensión
+            const cuantiaBaseAnual = salario * basePorcentaje / 100 * 365;
+            const incrementoAnual = salario * incrementoPorcentaje / 100 * 365;
+            const cuantiaAnualPension = cuantiaBaseAnual + incrementoAnual;
             // Ayuda por esposa (15%)
             const ayudaEsposa = esposa === 'si' ? cuantiaAnualPension * 0.15 : 0;
           
@@ -241,7 +200,113 @@ export class HomeComponent implements OnInit {
             // Calcular mensuales
             this.pensionTotalMensual = pensionVejezAnual / 12;
             this.pensionCesantiaMensual = pensionCesantiaAnual / 12;
-          }
+          
+            console.log('Base Porcentaje:', basePorcentaje);
+            console.log('Incremento Porcentaje:', incrementoPorcentaje);
+            console.log('Cuantía Anual Base:', cuantiaBaseAnual);
+            console.log('Incremento Anual:', incrementoAnual);
+            console.log('Cuantía Total Anual:', cuantiaAnualPension);
+          } */
+           
+          
+            onSubmit(): void {
+              if (this.cotizacionForm.valid) {
+                const formValue = this.cotizacionForm.value;
+                this.calcularPension(formValue);
+              }
+            }
+          
+            calcularPension(formValue: any): void {
+              const { semanasCotizadas, salarioDiarioPromedio, esposa, hijosMenoresEstudiando, padres, edadJubilacion } = formValue;
+          
+              // Cálculo de la pensión anual por vejez
+              const pensionAnualVejez = this.calcularPensionVejez(semanasCotizadas, salarioDiarioPromedio, esposa, hijosMenoresEstudiando, padres);
+              this.pensionTotal = pensionAnualVejez;
+              this.pensionTotalMensual = pensionAnualVejez / 12;
+          
+              // Cálculo de la pensión anual por cesantía en edad avanzada
+              const pensionAnualCesantia = this.calcularPensionCesantia(semanasCotizadas, salarioDiarioPromedio, esposa, hijosMenoresEstudiando, padres, edadJubilacion);
+              this.pensionCesantia = pensionAnualCesantia;
+              this.pensionCesantiaMensual = pensionAnualCesantia / 12;
+            }
+          
+            calcularPensionVejez(semanasCotizadas: number, salarioDiarioPromedio: number, esposa: string, hijosMenoresEstudiando: number, padres: string): number {
+              // Lógica para calcular la pensión por vejez
+              // Este es un ejemplo, ajusta según las reglas de cálculo reales
+              let pension = salarioDiarioPromedio * 365; // Base anual
+              if (esposa === 'si') {
+                pension += pension * 0.15; // Aumento por esposa
+              }
+              if (hijosMenoresEstudiando > 0) {
+                pension += pension * (0.10 * hijosMenoresEstudiando); // Aumento por hijos
+              }
+              if (padres === 'si') {
+                pension += pension * 0.10; // Aumento por padres
+              }
+              return pension;
+            }
+          
+            calcularPensionCesantia(semanasCotizadas: number, salarioDiarioPromedio: number, esposa: string, hijosMenoresEstudiando: number, padres: string, edadJubilacion: number): number {
+              // Lógica para calcular la pensión por cesantía en edad avanzada
+              // Este es un ejemplo, ajusta según las reglas de cálculo reales
+              let pension = salarioDiarioPromedio * 365; // Base anual
+              if (esposa === 'si') {
+                pension += pension * 0.15; // Aumento por esposa
+              }
+              if (hijosMenoresEstudiando > 0) {
+                pension += pension * (0.10 * hijosMenoresEstudiando); // Aumento por hijos
+              }
+              if (padres === 'si') {
+                pension += pension * 0.10; // Aumento por padres
+              }
+              if (edadJubilacion < 65) {
+                pension -= pension * 0.05; // Reducción por jubilación anticipada
+              }
+              return pension;
+            }
+          
+           
+            
+            
+            
+         /*  onSubmit() {
+            // Obtener los valores del formulario
+            const semanasCotizadas = this.cotizacionForm.value.semanasCotizadas;
+            const salarioDiarioPromedio = this.cotizacionForm.value.salarioDiarioPromedio;
+            const esposa = this.cotizacionForm.value.esposa;
+            const hijosMenoresEstudiando = this.cotizacionForm.value.hijosMenoresEstudiando;
+            const padres = this.cotizacionForm.value.padres;
+            const edadJubilacion = this.cotizacionForm.value.edadJubilacion;
+          
+            // Cálculos
+            const cuantiaBasicaAnual = salarioDiarioPromedio * 0.1829 * 365;
+            const incrementoAnual = salarioDiarioPromedio * 0.0230 * 365 * 13.5;
+            const cuantiaAnualPension = cuantiaBasicaAnual + incrementoAnual;
+          
+            // Ayuda por esposa (15%)
+            const ayudaEsposa = esposa === 'si' ? cuantiaAnualPension * 0.15 : 0;
+          
+            // Ayuda por hijos y padres
+            const ayudaHijos = hijosMenoresEstudiando > 0 ? cuantiaAnualPension * 0.10 : 0;
+            const ayudaPadres = padres === 'si' ? cuantiaAnualPension * 0.20 : 0;
+          
+            // Cuantía total anual (con ayudas)
+            const cuantiaTotalAnual = cuantiaAnualPension + ayudaEsposa + ayudaHijos + ayudaPadres;
+          
+            // Pensión Anual x Vejez con incremento del 11%
+            const pensionVejezAnual = cuantiaTotalAnual * 1.11;
+          
+            // Pensión Anual x Cesantía en Edad Avanzada
+            const pensionCesantiaAnual = pensionVejezAnual * 0.100;
+          
+            // Mostrar resultados
+            this.pensionTotal = pensionVejezAnual;
+            this.pensionCesantia = pensionCesantiaAnual;
+          
+            // Calcular mensuales
+            this.pensionTotalMensual = pensionVejezAnual / 12;
+            this.pensionCesantiaMensual = pensionCesantiaAnual / 12;
+          } */
           
         
         limpiar(): void {
