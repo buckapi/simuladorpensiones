@@ -1,0 +1,46 @@
+<div style="text-align:center">
+    <h1>Calculadora de Pensión</h1>
+    <form [formGroup]="pensionForm" (ngSubmit)="calcularPensiones()">
+      
+      <div>
+        <label for="semanasCotizadas">Semanas Cotizadas</label>
+        <input type="number" id="semanasCotizadas" formControlName="semanasCotizadas">
+      </div>
+  
+      <div>
+        <label for="salarioDiarioPromedio">Salario Diario Promedio</label>
+        <input type="number" id="salarioDiarioPromedio" formControlName="salarioDiarioPromedio">
+      </div>
+  
+      <div>
+        <label for="esposa">Esposa</label>
+        <input type="checkbox" id="esposa" formControlName="esposa">
+      </div>
+  
+      <div>
+        <label for="hijos">Hijos Menores o Estudiando</label>
+        <input type="number" id="hijos" formControlName="hijos">
+      </div>
+  
+      <div>
+        <label for="padres">Padres</label>
+        <input type="checkbox" id="padres" formControlName="padres">
+      </div>
+  
+      <div>
+        <label for="edadJubilacion">Edad de Jubilación</label>
+        <select id="edadJubilacion" formControlName="edadJubilacion">
+          <option *ngFor="let edad of edadesJubilacion" [value]="edad">{{ edad }}</option>
+        </select>
+      </div>
+  
+      <button type="submit" [disabled]="pensionForm.invalid">Calcular</button>
+    </form>
+  
+    <div *ngIf="pensionVejez && pensionCesantia">
+      <h2>Resultados:</h2>
+      <p>Pensión de Vejez: ${{ pensionVejez.toFixed(2) }}</p>
+      <p>Pensión por Cesantía en Edad Avanzada: ${{ pensionCesantia.toFixed(2) }}</p>
+    </div>
+  </div>
+  
